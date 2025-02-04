@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <style>
+        body {
+            font-family: Baskerville, sans-serif;
+            background-image: url('bg3.png'); /* Replace with your image file */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+
+        /* Page Header */
+        .page-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .page-header img {
+            width: 80px;
+            height: auto;
+        }
+        .page-header h1 {
+            font-size: 45px;
+            color: black;
+            flex-grow: 1;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Form Container */
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .container button {
+            background-color: #265891;
+            color: #ffffff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .container button:hover {
+            background-color: #1d5693;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <img src="logo.png" alt="College Logo"> <!-- Replace logo.png with the actual file name -->
+        <h1>GSSS Institute of Engineering and Technology for Women</h1>
+    </div>
+
+    <!-- Sign In/Sign Up Container -->
+    <div class="container" id="form-container">
+        <h2 id="form-title">Sign Up</h2>
+        <form action="/" method="POST" id="form">
+            <div id="signup-fields">
+                <!-- Sign Up Fields -->
+                <div class="input-group">
+                    <label for="full_name">Full Name:</label>
+                    <input type="text" id="full_name" name="full_name" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="department">Department:</label>
+                    <input type="text" id="department" name="department" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+            </div>
+
+            <!-- Sign In Fields (Initially hidden) -->
+            <div id="signin-fields" style="display:none;">
+                <div class="input-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="signin-username" name="username" placeholder="Enter your username" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="department">Department:</label>
+                    <input type="text" id="signin-department" name="department" placeholder="Enter your department" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="signin-password" name="password" placeholder="Enter your password" required>
+                </div>
+            </div>
+
+            <button type="submit" id="formButton">Sign Up</button>
+        </form>
+        <button class="toggle-btn" onclick="toggleForm()">Already have an account? Sign In</button>
+    </div>
+
+    <script>
+        let isSignUp = true;
+
+        // Toggle between Sign In and Sign Up
+        function toggleForm() {
+            const formTitle = document.getElementById("form-title");
+            const formButton = document.getElementById("formButton");
+            const toggleButton = document.querySelector(".toggle-btn");
+            const signupFields = document.getElementById("signup-fields");
+            const signinFields = document.getElementById("signin-fields");
+
+            isSignUp = !isSignUp;
+
+            if (isSignUp) {
+                formTitle.textContent = "Sign Up";
+                formButton.textContent = "Sign Up";
+                toggleButton.textContent = "Already have an account? Sign In";
+                signupFields.style.display = "block";
+                signinFields.style.display = "none";
+            } else {
+                formTitle.textContent = "Sign In";
+                formButton.textContent = "Sign In";
+                toggleButton.textContent = "Don't have an account? Sign Up";
+                signupFields.style.display = "none";
+                signinFields.style.display = "block";
+            }
+        }
+
+        // Handle Submit for both Sign In and Sign Up
+        document.getElementById("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById(isSignUp ? "username" : "signin-username").value;
+            const department = document.getElementById(isSignUp ? "department" : "signin-department").value;
+            const password = document.getElementById(isSignUp ? "password" : "signin-password").value;
+
+            if (isSignUp) {
+                const fullName = document.getElementById("full_name").value;
+                const email = document.getElementById("email").value;
+                const phone = document.getElementById("phone").value;
+                const dob = document.getElementById("dob").value;
+                const designation = document.getElementById("designation").value;
+
+                // Handle Sign Up: Save data to database (send via POST)
+                fetch('/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fullName, email, phone, dob, designation, username, department, password })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    if (data.success) toggleForm(); // Go back to Sign In
+                });
+            } else {
+                // Handle Sign In: Verify credentials
+                fetch('/signin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, department, password })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Login successful!");
+                        window.location.href = "dashboard.html";
+                    } else {
+                        alert("Invalid credentials!");
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
